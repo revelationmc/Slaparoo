@@ -13,7 +13,7 @@ public class QuitListener implements Listener {
     public void onQuit(PlayerQuitEvent quitEvent){
         Player player = quitEvent.getPlayer();
         String nameCut = player.getDisplayName().substring(player.getDisplayName().indexOf("|")+1);
-        quitEvent.setQuitMessage(ColourUtils.colour("&e&lSLAP &8| &a" + nameCut.trim() + " &edoesn't want to slap anymore. &6(&a" +
+        quitEvent.setQuitMessage(ColourUtils.colour("&6&lSLAP &8| &a" + nameCut.trim() + " &edoesn't want to slap anymore. &6(&a" +
                 Bukkit.getServer().getOnlinePlayers().size() + "&e/&a10&6)"));
     }
 

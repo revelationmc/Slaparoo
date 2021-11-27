@@ -1,7 +1,10 @@
 package main;
 
+import commands.StartCommand;
+import listeners.HitEvent;
 import listeners.JoinListener;
 import listeners.QuitListener;
+import managers.GameManager;
 import me.vagdedes.mysql.database.MySQL;
 import me.vagdedes.mysql.database.SQL;
 import org.bukkit.Bukkit;
@@ -17,6 +20,8 @@ public class Main extends JavaPlugin {
         createTable();
         Bukkit.getServer().getPluginManager().registerEvents(new JoinListener(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new QuitListener(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new HitEvent(), this);
+        Bukkit.getPluginCommand("start").setExecutor(new StartCommand(new GameManager(this)));
     }
 
     @Override
@@ -46,7 +51,7 @@ public class Main extends JavaPlugin {
     public void insertData(Player p)
     {
         SQL.insertData("name, UUID, points, kills, deaths", " '" + p.getName() + "', '" + p.getUniqueId().toString() + "', '0', '0', '0'"  , "slaparoo");
-        //                   playerName,   UUID, 0, 0, 0
+        //                   playerName, UUID, 0, 0, 0
     }
 
     public void addPoints(Player p, int amount)

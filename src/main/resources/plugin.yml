@@ -1,3 +1,8 @@
 name: Slaparoo
 main: main.Main
 version: 1.0
+commands:
+  start:
+    permission: slaparoo.start
+    permission-message: "&cYou may not execute this command."
+    description: Starts the game.
