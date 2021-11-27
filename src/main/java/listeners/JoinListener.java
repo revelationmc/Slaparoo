@@ -13,7 +13,7 @@ public class JoinListener implements Listener {
     public void onJoin(PlayerJoinEvent joinEvent){
         Player player = joinEvent.getPlayer();
         String nameCut = player.getDisplayName().substring(player.getDisplayName().indexOf("|")+1);
-        joinEvent.setJoinMessage(ColourUtils.colour("&e&lSLAP &8| &a" + nameCut.trim() + " &e is ready to slap! &6(&a" +
+        joinEvent.setJoinMessage(ColourUtils.colour("&6&lSLAP &8| &a" + nameCut.trim() + "&e is ready to slap! &6(&a" +
                 Bukkit.getServer().getOnlinePlayers().size() + "&e/&a10&6)"));
     }
 
