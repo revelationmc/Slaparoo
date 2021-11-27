@@ -25,7 +25,7 @@ public class GameManager {
         Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(main, () -> {
             for(Player online: Bukkit.getOnlinePlayers()){
                 online.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ColourUtils.colour("&6&lSLAP &eis starting in &a&l" + startCount-- )));
-                online.playSound(online.getLocation(), Sound.BLOCK_COMPARATOR_CLICK, 5, 1);
+                online.playSound(online.getLocation(), Sound.BLOCK_COMPARATOR_CLICK, 1, 10);
             }
         }, 0L, 300L);
         start();
@@ -33,6 +33,8 @@ public class GameManager {
 
     public void start(){
         for(Player online: Bukkit.getOnlinePlayers()) {
+            online.setFoodLevel(20);
+            online.getInventory().clear();
             online.getInventory().setItem(0, new ItemStack(Material.COOKIE));
             online.getInventory().setChestplate(new ItemStack(Material.ELYTRA));
             online.sendTitle(ColourUtils.colour("&6&lSLAP&e&lAROO"), ColourUtils.colour("&eInspired by HiveMC: Java Edition."), 40, 40, 40);
@@ -40,7 +42,7 @@ public class GameManager {
        fin = Bukkit.getScheduler().runTaskLaterAsynchronously(main, () -> {
             for(Player online: Bukkit.getOnlinePlayers()){
                 online.sendTitle(ColourUtils.colour("&4&lGAME OVER"), "", 40, 40, 40);
-                online.playSound(online.getLocation(), Sound.ENTITY_WITHER_DEATH, 5, 1);
+                online.playSound(online.getLocation(), Sound.ENTITY_WITHER_DEATH, 1, 10);
                 state = States.WAITING;
             }
         }, 2400L);
