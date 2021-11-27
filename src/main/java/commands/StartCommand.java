@@ -10,7 +10,9 @@ import utils.ColourUtils;
 public class StartCommand implements CommandExecutor {
 
     GameManager gm;
-    public StartCommand(GameManager gm){}
+    public StartCommand(GameManager gm){
+        this.gm = gm;
+    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
