@@ -1,6 +1,7 @@
 package commands;
 
 import managers.GameManager;
+import managers.States;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -16,7 +17,11 @@ public class StartCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        gm.start();
+        if(!(gm.getState() == States.IN_GAME)){
+            gm.start();
+        } else {
+            gm.debug("same");
+        }
         Player p = (Player) sender;
         p.sendMessage(ColourUtils.colour("&a&lAdmin command executed successfully."));
         return true;
