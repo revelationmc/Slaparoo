@@ -12,7 +12,7 @@ import org.bukkit.scheduler.BukkitTask;
 import utils.ColourUtils;
 
 public class GameManager {
-    States state;
+    private States state = States.WAITING;
     Main main;
     int startCount = 15;
     BukkitTask fin;
@@ -37,16 +37,30 @@ public class GameManager {
             online.getInventory().clear();
             online.getInventory().setItem(0, new ItemStack(Material.COOKIE));
             online.getInventory().setChestplate(new ItemStack(Material.ELYTRA));
-            online.sendTitle(ColourUtils.colour("&6&lSLAP&e&lAROO"), ColourUtils.colour("&eInspired by HiveMC: Java Edition."), 40, 40, 40);
+            online.sendTitle(ColourUtils.colour("&6&lSLAP&e&lAROO"), ColourUtils.colour("&eInspired by HiveMC: Java Edition."), 40, 60, 40);
+            online.playSound(online.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 7, 1);
         }
        fin = Bukkit.getScheduler().runTaskLaterAsynchronously(main, () -> {
             for(Player online: Bukkit.getOnlinePlayers()){
-                online.sendTitle(ColourUtils.colour("&4&lGAME OVER"), "", 40, 40, 40);
-                online.playSound(online.getLocation(), Sound.ENTITY_WITHER_DEATH, 1, 10);
-                state = States.WAITING;
+                online.sendTitle(ColourUtils.colour("&4&lGAME OVER"), ColourUtils.colour("&a&oThanks for playing!"), 40, 60, 40);
+                online.playSound(online.getLocation(), Sound.ENTITY_WITHER_DEATH, 7, 1);
+                this.setState(States.IN_GAME);
+                this.runDebug();
             }
         }, 2400L);
     }
 
+    public void setState(States state){
+        this.state = state;
+    }
+
+    public States getState(){
+        return this.state;
+    }
+
+    public void runDebug(){ // sends administrators a message letting them know the state was changed.
+        Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("slaparoo.start")).forEach(player ->
+                player.sendMessage(ColourUtils.colour("&e&lGAME &8| &fGame state set to&8: &e" + getState().toString())));
+    }
 
 }

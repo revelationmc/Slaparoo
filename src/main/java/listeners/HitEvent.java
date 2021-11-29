@@ -11,7 +11,7 @@ import utils.ColourUtils;
 
 public class HitEvent implements Listener {
 
-    Location below;
+    private Location below;
 
     @EventHandler
     public void onHit(EntityDamageByEntityEvent event){
@@ -19,13 +19,13 @@ public class HitEvent implements Listener {
            if(event.getEntity() instanceof Player){
                Player p = (Player) event.getDamager();
                Player t = (Player) event.getEntity();
-               below = new Location(t.getWorld(), t.getLocation().getX(), t.getLocation().getY() - 1, t.getLocation().getZ());
-               if(below.getBlock().getType() == Material.PURPLE_TERRACOTTA){
+               this.below = new Location(t.getWorld(), t.getLocation().getX(), t.getLocation().getY() - 1, t.getLocation().getZ());
+               if(this.below.getBlock().getType() == Material.PURPLE_TERRACOTTA){
                    event.setCancelled(true);
                    p.sendMessage(ColourUtils.colour("&cYou need to be on the map to hit players."));
                } else {
                    t.setHealth(20);
-                   t.setVelocity(t.getVelocity().multiply(7F));
+                   t.setVelocity(t.getVelocity().multiply(1).setY(1));
                }
            }
        }

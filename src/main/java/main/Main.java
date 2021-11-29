@@ -1,10 +1,7 @@
 package main;
 
 import commands.StartCommand;
-import listeners.HitEvent;
-import listeners.JoinListener;
-import listeners.QuitListener;
-import listeners.VoidListener;
+import listeners.*;
 import managers.GameManager;
 import me.vagdedes.mysql.database.MySQL;
 import me.vagdedes.mysql.database.SQL;
@@ -23,6 +20,8 @@ public class Main extends JavaPlugin {
         Bukkit.getServer().getPluginManager().registerEvents(new QuitListener(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new HitEvent(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new VoidListener(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new InvListener(new GameManager(this)), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new FoodLevelListener(), this);
         Bukkit.getPluginCommand("start").setExecutor(new StartCommand(new GameManager(this)));
     }
 

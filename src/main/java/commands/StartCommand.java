@@ -9,7 +9,7 @@ import utils.ColourUtils;
 
 public class StartCommand implements CommandExecutor {
 
-    GameManager gm;
+    private GameManager gm;
     public StartCommand(GameManager gm){
         this.gm = gm;
     }
