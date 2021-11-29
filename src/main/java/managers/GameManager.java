@@ -16,11 +16,10 @@ public class GameManager {
     Main main;
     int startCount = 15;
     BukkitTask fin;
-    private DebugClass debugClass;
 
-    public GameManager(Main main, DebugClass debugClass){
+    public GameManager(Main main){
+
         this.main = main;
-        this.debugClass = debugClass;
     }
 
     public void runCountdown(){
@@ -70,12 +69,14 @@ public class GameManager {
                 player.sendMessage(ColourUtils.colour("&e&lGAME &8| &fGame state set to&8: &e" + getState().toString())));
     }
 
-    public void debug(Object issue){
-        if(issue == "start"){
-            debugClass.cannotStart();
+    public void debug(String issue) {
+        if (issue == "start") {
+            Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("slaparoo.start")).forEach(player ->
+                    player.sendMessage(ColourUtils.colour("&c&lDEBUG &8| &fDebug at state change:&c game did not start properly.")));
         }
-        if(issue == "same"){
-            debugClass.sameState();
+        if (issue == "same") {
+            Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("slaparoo.start")).forEach(player ->
+                    player.sendMessage(ColourUtils.colour("&c&lDEBUG &8| &fDebug at state change:&c state cannot change to the same state.")));
         }
     }
 
