@@ -40,12 +40,14 @@ public class GameManager {
             online.getInventory().setChestplate(new ItemStack(Material.ELYTRA));
             online.sendTitle(ColourUtils.colour("&6&lSLAP&e&lAROO"), ColourUtils.colour("&eInspired by HiveMC: Java Edition."), 40, 60, 40);
             online.playSound(online.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 7, 1);
+            this.setState(States.IN_GAME);
+            this.runStateChange();
         }
        fin = Bukkit.getScheduler().runTaskLaterAsynchronously(main, () -> {
             for(Player online: Bukkit.getOnlinePlayers()){
                 online.sendTitle(ColourUtils.colour("&4&lGAME OVER"), ColourUtils.colour("&a&oThanks for playing!"), 40, 60, 40);
                 online.playSound(online.getLocation(), Sound.ENTITY_WITHER_DEATH, 7, 1);
-                this.setState(States.IN_GAME);
+                this.setState(States.WAITING);
                 this.runStateChange();
             }
         }, 2400L);
@@ -53,11 +55,6 @@ public class GameManager {
 
     public void setState(States state){
         this.state = state;
-        if(getState() == States.IN_GAME){
-            if(state == States.IN_GAME){
-                debug("same");
-            }
-        }
     }
 
     public States getState(){
