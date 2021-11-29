@@ -16,9 +16,11 @@ public class GameManager {
     Main main;
     int startCount = 15;
     BukkitTask fin;
+    private DebugClass debugClass;
 
-    public GameManager(Main main){
+    public GameManager(Main main, DebugClass debugClass){
         this.main = main;
+        this.debugClass = debugClass;
     }
 
     public void runCountdown(){
@@ -45,22 +47,36 @@ public class GameManager {
                 online.sendTitle(ColourUtils.colour("&4&lGAME OVER"), ColourUtils.colour("&a&oThanks for playing!"), 40, 60, 40);
                 online.playSound(online.getLocation(), Sound.ENTITY_WITHER_DEATH, 7, 1);
                 this.setState(States.IN_GAME);
-                this.runDebug();
+                this.runStateChange();
             }
         }, 2400L);
     }
 
     public void setState(States state){
         this.state = state;
+        if(getState() == States.IN_GAME){
+            if(state == States.IN_GAME){
+                debug("same");
+            }
+        }
     }
 
     public States getState(){
         return this.state;
     }
 
-    public void runDebug(){ // sends administrators a message letting them know the state was changed.
+    public void runStateChange(){ // sends administrators a message letting them know the state was changed.
         Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("slaparoo.start")).forEach(player ->
                 player.sendMessage(ColourUtils.colour("&e&lGAME &8| &fGame state set to&8: &e" + getState().toString())));
+    }
+
+    public void debug(Object issue){
+        if(issue == "start"){
+            debugClass.cannotStart();
+        }
+        if(issue == "same"){
+            debugClass.sameState();
+        }
     }
 
 }

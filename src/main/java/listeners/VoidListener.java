@@ -33,8 +33,8 @@ public class VoidListener implements Listener {
                                     if(world.getBlockAt(x, y, z).getType() == Material.PURPLE_TERRACOTTA){
                                         Block b = world.getBlockAt(x, y, z);
                                         purpleTerraBlock.add(b);
-                                        purpleTerracotta = new Location(b.getWorld(), b.getX(), b.getY()+2, b.getZ());
-                                        player.teleport(purpleTerracotta);
+                                        this.purpleTerracotta = new Location(b.getWorld(), b.getX(), b.getY()+2, b.getZ());
+                                        player.teleport(this.purpleTerracotta);
                                         break;
                                     }
                                 }
