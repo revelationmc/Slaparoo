@@ -17,6 +17,7 @@ public class StartCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        gm.setState(States.IN_GAME);
         if(!(gm.getState() == States.IN_GAME)){
             gm.start();
         } else {
