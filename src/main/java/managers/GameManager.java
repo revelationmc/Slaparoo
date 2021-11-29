@@ -45,12 +45,12 @@ public class GameManager {
             this.runStateChange();
         }
        fin = Bukkit.getScheduler().runTaskLaterAsynchronously(main, () -> {
-            for(Player online: Bukkit.getOnlinePlayers()){
-                online.sendTitle(ColourUtils.colour("&4&lGAME OVER"), ColourUtils.colour("&a&oThanks for playing!"), 40, 60, 40);
-                online.playSound(online.getLocation(), Sound.ENTITY_WITHER_DEATH, 7, 1);
+            Bukkit.getOnlinePlayers().forEach(player -> {
+                player.sendTitle(ColourUtils.colour("&4&lGAME OVER"), ColourUtils.colour("&a&oThanks for playing!"), 40, 60, 40);
+                player.playSound(player.getLocation(), Sound.ENTITY_WITHER_DEATH, 7, 1);
                 this.setState(States.WAITING);
                 this.runStateChange();
-            }
+            });
         }, 2400L);
     }
 
@@ -69,16 +69,16 @@ public class GameManager {
 
     public void debug(String issue) {
         if (issue == "start") {
-            Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("slaparoo.start")).forEach(player ->
-                    player.sendMessage(ColourUtils.colour("&c&lDEBUG &8| &fDebug at state change:&c game did not start properly.")));
-            Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("slaparoo.alert")).forEach(player ->
-                    ABUtils.runActionBar("&c&lDEBUG &8| &fDebug at start: &cGame is already running.", player));
+            Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("slaparoo.start")).forEach(player -> {
+                    player.sendMessage(ColourUtils.colour("&c&lDEBUG &8| &fDebug at start:&c game did not start properly."));
+                    player.sendMessage(ColourUtils.colour("&c&lDEBUG &8| &6Cause&8: &fGame is already running."));
+            });
         }
         if (issue == "same") {
-            Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("slaparoo.start")).forEach(player ->
-                    player.sendMessage(ColourUtils.colour("&c&lDEBUG &8| &fDebug at state change:&c state cannot change to the same state.")));
-            Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("slaparoo.alert")).forEach(player ->
-                    ABUtils.runActionBar("&c&lDEBUG &8| &fDebug at state change:&c state cannot change to the same state.", player));
+            Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("slaparoo.start")).forEach(player -> {
+                    player.sendMessage(ColourUtils.colour("&c&lDEBUG &8| &fDebug at state change:&c state cannot change to the same state."));
+                    player.sendMessage(ColourUtils.colour("&c&lDEBUG &8| &6Cause&8: &fGame state cannot be set to the same game state."));
+            });
         }
     }
 
