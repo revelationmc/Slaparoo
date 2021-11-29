@@ -5,7 +5,6 @@ import managers.States;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import utils.ColourUtils;
 
 public class StartCommand implements CommandExecutor {
@@ -20,11 +19,10 @@ public class StartCommand implements CommandExecutor {
         if(!(gm.getState() == States.IN_GAME)){
             gm.setState(States.IN_GAME);
             gm.start();
+            sender.sendMessage(ColourUtils.colour("&e&lGAME &8| &fGame started."));
         } else {
-            gm.debug("same");
+            gm.debug("start");
         }
-        Player p = (Player) sender;
-        p.sendMessage(ColourUtils.colour("&a&lAdmin command executed successfully."));
         return true;
     }
 }

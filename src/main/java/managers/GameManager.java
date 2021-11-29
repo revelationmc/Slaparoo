@@ -9,6 +9,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitTask;
+import utils.ABUtils;
 import utils.ColourUtils;
 
 public class GameManager {
@@ -70,10 +71,14 @@ public class GameManager {
         if (issue == "start") {
             Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("slaparoo.start")).forEach(player ->
                     player.sendMessage(ColourUtils.colour("&c&lDEBUG &8| &fDebug at state change:&c game did not start properly.")));
+            Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("slaparoo.alert")).forEach(player ->
+                    ABUtils.runActionBar("&c&lDEBUG &8| &fDebug at start: &cGame is already running.", player));
         }
         if (issue == "same") {
             Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("slaparoo.start")).forEach(player ->
                     player.sendMessage(ColourUtils.colour("&c&lDEBUG &8| &fDebug at state change:&c state cannot change to the same state.")));
+            Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("slaparoo.alert")).forEach(player ->
+                    ABUtils.runActionBar("&c&lDEBUG &8| &fDebug at state change:&c state cannot change to the same state.", player));
         }
     }
 
