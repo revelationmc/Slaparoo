@@ -29,7 +29,7 @@ public class VoidCheck implements Listener {
                 hitter.playSound(hitter.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 7, 1);
                 main.addKills(hitter);
                 main.addDeaths(player);
-                main.addPoints(hitter, 2);
+                main.addPoints(hitter, 1);
             }
             if(JoinListener.playerNum.get(player).equals(null)){
                if(JoinListener.num < 5){
