@@ -25,7 +25,7 @@ public class HitEvent implements Listener {
                    p.sendMessage(ColourUtils.colour("&cYou need to be on the map to hit players."));
                } else {
                    t.setHealth(20);
-                   t.setVelocity(t.getVelocity().multiply(1).setY(1));
+                   t.setVelocity(t.getLocation().getDirection().multiply(5).setY(3));
                }
            }
        }

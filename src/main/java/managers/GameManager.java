@@ -34,7 +34,7 @@ public class GameManager {
 
     public void start(){
         if(main.getConfig().getKeys(false).size() == 0){
-
+            debug("nospawns");
         }
         for(Player online: Bukkit.getOnlinePlayers()) {
             online.setFoodLevel(20);
@@ -44,8 +44,8 @@ public class GameManager {
             online.sendTitle(ColourUtils.colour("&6&lSLAP&e&lAROO"), ColourUtils.colour("&eInspired by HiveMC: Java Edition."), 40, 60, 40);
             online.playSound(online.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 7, 1);
             this.setState(States.IN_GAME);
-            main.getGameSignsApi().setState(GameState.IN_GAME);
             this.runStateChange();
+            main.getGameSignsApi().setGameState(GameState.IN_GAME);
         }
        fin = Bukkit.getScheduler().runTaskLaterAsynchronously(main, () -> {
             Bukkit.getOnlinePlayers().forEach(player -> {
@@ -53,6 +53,9 @@ public class GameManager {
                 player.playSound(player.getLocation(), Sound.ENTITY_WITHER_DEATH, 7, 1);
                 this.setState(States.WAITING);
                 this.runStateChange();
+                main.getGameSignsApi().setGameState(GameState.WAITING);
+                player.getInventory().clear();
+                player.getInventory().getChestplate().setType(Material.AIR);
             });
         }, 2400L);
     }
