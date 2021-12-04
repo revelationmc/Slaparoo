@@ -33,6 +33,7 @@ public class Main extends JavaPlugin {
         Bukkit.getServer().getPluginManager().registerEvents(new HitEvent(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new InvListener(new GameManager(this)), this);
         Bukkit.getServer().getPluginManager().registerEvents(new FoodLevelListener(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new ChatListener(this), this);
         Bukkit.getPluginCommand("start").setExecutor(new StartCommand(new GameManager(this)));
         Bukkit.getPluginCommand("gamespawn").setExecutor(new SetSpawnLocations(this));
         Bukkit.getPluginManager().registerEvents(new VoidCheck(this), this);
