@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import utils.ColourUtils;
 
 public class ChatListener implements Listener {
 
@@ -21,28 +22,28 @@ public class ChatListener implements Listener {
             main.insertData(p);
         } else {
             if(main.getPoints(p) < 10){
-                e.setFormat("&8Baby Faced " + name + "&8\u00BB &r" + e.getMessage());
+                e.setFormat(ColourUtils.colour("&8Baby Faced " + name + "&8\u00BB &r" + e.getMessage()));
             }
             if(main.getPoints(p) >= 10 && main.getPoints(p) < 50){
-                e.setFormat("&7Red Faced " + name + "&8\u00BB &r" + e.getMessage());
+                e.setFormat(ColourUtils.colour("&7Red Faced " + name + "&8\u00BB &r" + e.getMessage()));
             }
             if(main.getPoints(p) >= 50 && main.getPoints(p) < 100){
-                e.setFormat("&fShazam " + name + "&8\u00BB &r" + e.getMessage());
+                e.setFormat(ColourUtils.colour("&fShazam " + name + "&8\u00BB &r" + e.getMessage()));
             }
             if(main.getPoints(p) >= 100 && main.getPoints(p) < 250){
-                e.setFormat("&ePow " + name + "&8\u00BB &r" + e.getMessage());
+                e.setFormat(ColourUtils.colour("&ePow " + name + "&8\u00BB &r" + e.getMessage()));
             }
             if(main.getPoints(p) >= 250 && main.getPoints(p) < 500){
-                e.setFormat("&aWallop " + name + "&8\u00BB &r" + e.getMessage());
+                e.setFormat(ColourUtils.colour("&aWallop " + name + "&8\u00BB &r" + e.getMessage()));
             }
             if(main.getPoints(p) >= 500 && main.getPoints(p) < 750){
-                e.setFormat("&2Splat " + name + "&8\u00BB &r" + e.getMessage());
+                e.setFormat(ColourUtils.colour("&2Splat " + name + "&8\u00BB &r" + e.getMessage()));
             }
             if(main.getPoints(p) >= 750 && main.getPoints(p) < 1000){
-                e.setFormat("&dClank " + name + "&8\u00BB &r" + e.getMessage());
+                e.setFormat(ColourUtils.colour("&dClank " + name + "&8\u00BB &r" + e.getMessage()));
             }
             if(main.getPoints(p) >= 1000 && main.getPoints(p) < 1500){
-                e.setFormat("&bKapow " + name + "&8\u00BB &r" + e.getMessage());
+                e.setFormat(ColourUtils.colour("&bKapow " + name + "&8\u00BB &r" + e.getMessage()));
             }
         }
 
