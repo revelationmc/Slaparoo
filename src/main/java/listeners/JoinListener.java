@@ -64,7 +64,7 @@ public class JoinListener implements Listener {
                 }
             }
             joinEvent.setJoinMessage(ColourUtils.colour("&6&lSLAP &8| &r" + player.getDisplayName() + "&e is ready to slap! &6(&a" +
-                    Bukkit.getServer().getOnlinePlayers().size() + "&e/&a65&6)"));
+                    Bukkit.getServer().getOnlinePlayers().size() + "&e/&a5&6)"));
         }
     }
 
