@@ -19,6 +19,7 @@ dependencies {
     compileOnly 'me.vagededes:MySQL:3.6'
     compileOnly 'io.papermc.paper:Paper-Api:1.17.1-R0.1-SNAPSHOT'
     compileOnly 'net.revelationmc:GameSigns-API:1.1.0'
+    compileOnly 'net.luckperms:api:5.3'
 }
 
 test {

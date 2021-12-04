@@ -2,6 +2,7 @@ package listeners;
 
 
 import main.Main;
+import me.vagdedes.mysql.database.MySQL;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -23,8 +24,12 @@ public class VoidCheck implements Listener {
         if(event.getCause() == EntityDamageEvent.DamageCause.VOID) {
             event.setCancelled(true);
             if(!HitEvent.playerHitCheck.get(player).equals(null)){
-                HitEvent.playerHitCheck.get(player).sendMessage(ColourUtils.colour("&6&lSLAP &8| &aYou killed &e&l" + player.getName()));
-                HitEvent.playerHitCheck.get(player).playSound(HitEvent.playerHitCheck.get(player).getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 7, 1);
+                Player hitter = HitEvent.playerHitCheck.get(player);
+                hitter.sendMessage(ColourUtils.colour("&6&lSLAP &8| &aYou killed &e&l" + player.getName()));
+                hitter.playSound(hitter.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 7, 1);
+                main.addKills(hitter);
+                main.addDeaths(player);
+                main.addPoints(hitter, 2);
             }
             if(JoinListener.playerNum.get(player).equals(null)){
                if(JoinListener.num < 5){

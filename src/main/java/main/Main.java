@@ -6,6 +6,8 @@ import listeners.*;
 import managers.GameManager;
 import me.vagdedes.mysql.database.MySQL;
 import me.vagdedes.mysql.database.SQL;
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.LuckPermsProvider;
 import net.revelationmc.gamesigns.api.GameSignsAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -46,7 +48,7 @@ public class Main extends JavaPlugin {
     }
 
     private void runStartupConnnection(){
-            MySQL.setConnection("23.158.176.10", "u9881_XDwyt9wYE5", "L+3+90U^6y8oDMZmg2M69Xgp", "s9881_game", "3306");
+            MySQL.setConnection("na05-sql.pebblehost.com", "customer_236196_slaparoo", "jOVXZ!Inm-52bu7alDb3", "customer_236196_slaparoo", "3306");
             getLogger().info("Database Connected.");
     }
 
@@ -105,4 +107,15 @@ public class Main extends JavaPlugin {
         return this.gameSignsApi;
     }
 
+
+    private void runSetup(){
+        RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
+        if (provider != null) {
+            LuckPerms api = provider.getProvider();
+        }
+    }
+
+    public LuckPerms getLuckPerms(){
+        return LuckPermsProvider.get();
+    }
 }

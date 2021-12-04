@@ -44,6 +44,9 @@ public class GameManager {
             online.getInventory().setChestplate(new ItemStack(Material.ELYTRA));
             online.sendTitle(ColourUtils.colour("&6&lSLAP&e&lAROO"), ColourUtils.colour("&eInspired by HiveMC: Java Edition."), 40, 60, 40);
             online.playSound(online.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 7, 1);
+            if(!main.existsInTable(online)){
+                main.insertData(online.getPlayer());
+            }
         }
         this.setState(States.IN_GAME);
         main.getGameSignsApi().setGameState(GameState.IN_GAME);
