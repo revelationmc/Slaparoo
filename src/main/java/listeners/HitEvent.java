@@ -1,17 +1,21 @@
 package listeners;
 
 import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import utils.ColourUtils;
+
+import java.util.HashMap;
 
 
 public class HitEvent implements Listener {
 
     private Location below;
+
+    public static HashMap<Player, Player> playerHitCheck = new HashMap<>();
 
     @EventHandler
     public void onHit(EntityDamageByEntityEvent event){
@@ -20,13 +24,11 @@ public class HitEvent implements Listener {
                Player p = (Player) event.getDamager();
                Player t = (Player) event.getEntity();
                this.below = new Location(t.getWorld(), t.getLocation().getX(), t.getLocation().getY() - 1, t.getLocation().getZ());
-               if(this.below.getBlock().getType() == Material.PURPLE_TERRACOTTA){
-                   event.setCancelled(true);
-                   p.sendMessage(ColourUtils.colour("&cYou need to be on the map to hit players."));
-               } else {
                    t.setHealth(20);
-                   t.setVelocity(t.getLocation().getDirection().multiply(5).setY(3));
-               }
+                   t.setVelocity(t.getVelocity().multiply(5).setY(3));
+                   p.playSound(p.getLocation(), Sound.ENTITY_BLAZE_HURT, 7, 1);
+                   p.spawnParticle(Particle.SMALL_FLAME, t.getLocation(), 3);
+                   playerHitCheck.put(p, t);
            }
        }
     }

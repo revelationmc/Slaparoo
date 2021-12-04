@@ -5,6 +5,7 @@ import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.revelationmc.gamesigns.api.GameState;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -43,20 +44,19 @@ public class GameManager {
             online.getInventory().setChestplate(new ItemStack(Material.ELYTRA));
             online.sendTitle(ColourUtils.colour("&6&lSLAP&e&lAROO"), ColourUtils.colour("&eInspired by HiveMC: Java Edition."), 40, 60, 40);
             online.playSound(online.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 7, 1);
-            this.setState(States.IN_GAME);
-            this.runStateChange();
-            main.getGameSignsApi().setGameState(GameState.IN_GAME);
         }
+        this.setState(States.IN_GAME);
+        main.getGameSignsApi().setGameState(GameState.IN_GAME);
+        this.runStateChange();
        fin = Bukkit.getScheduler().runTaskLaterAsynchronously(main, () -> {
             Bukkit.getOnlinePlayers().forEach(player -> {
                 player.sendTitle(ColourUtils.colour("&4&lGAME OVER"), ColourUtils.colour("&a&oThanks for playing!"), 40, 60, 40);
                 player.playSound(player.getLocation(), Sound.ENTITY_WITHER_DEATH, 7, 1);
-                this.setState(States.WAITING);
-                this.runStateChange();
-                main.getGameSignsApi().setGameState(GameState.WAITING);
                 player.getInventory().clear();
-                player.getInventory().getChestplate().setType(Material.AIR);
             });
+            this.setState(States.WAITING);
+            main.getGameSignsApi().setGameState(GameState.WAITING);
+            this.runStateChange();
         }, 2400L);
     }
 

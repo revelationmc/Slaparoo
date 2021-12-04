@@ -20,17 +20,20 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable(){
-        runStartupConnnection();
+        if(!MySQL.isConnected()){
+            runStartupConnnection();
+        }
         createTable();
         config.options().copyDefaults(true);
         saveConfig();
-        Bukkit.getServer().getPluginManager().registerEvents(new JoinListener(), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new QuitListener(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new JoinListener(this), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new QuitListener(this), this);
         Bukkit.getServer().getPluginManager().registerEvents(new HitEvent(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new InvListener(new GameManager(this)), this);
         Bukkit.getServer().getPluginManager().registerEvents(new FoodLevelListener(), this);
         Bukkit.getPluginCommand("start").setExecutor(new StartCommand(new GameManager(this)));
         Bukkit.getPluginCommand("gamespawn").setExecutor(new SetSpawnLocations(this));
+        Bukkit.getPluginManager().registerEvents(new VoidCheck(this), this);
         final RegisteredServiceProvider<GameSignsAPI> apiProvider = this.getServer().getServicesManager().getRegistration(GameSignsAPI.class);
         if (apiProvider != null) {
             this.gameSignsApi = apiProvider.getProvider();
