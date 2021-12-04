@@ -7,3 +7,7 @@ commands:
     permission: slaparoo.start
     permission-message: "&cYou may not execute this command."
     description: Starts the game.
+  gamespawn:
+    permission: slaparoo.gamespawn
+    permission-message: "&cYou may not execute this command."
+    description: Set up to 5 game spawns.

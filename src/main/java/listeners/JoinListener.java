@@ -7,7 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import utils.ColourUtils;
 
-public class JoinListener implements Listener {
+public class JoinListener implements Listener{
 
     @EventHandler
     public void onJoin(PlayerJoinEvent joinEvent){

@@ -3,13 +3,13 @@ package managers;
 import main.Main;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
+import net.revelationmc.gamesigns.api.GameState;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitTask;
-import utils.ABUtils;
 import utils.ColourUtils;
 
 public class GameManager {
@@ -19,7 +19,6 @@ public class GameManager {
     BukkitTask fin;
 
     public GameManager(Main main){
-
         this.main = main;
     }
 
@@ -34,6 +33,9 @@ public class GameManager {
     }
 
     public void start(){
+        if(main.getConfig().getKeys(false).size() == 0){
+
+        }
         for(Player online: Bukkit.getOnlinePlayers()) {
             online.setFoodLevel(20);
             online.getInventory().clear();
@@ -42,6 +44,7 @@ public class GameManager {
             online.sendTitle(ColourUtils.colour("&6&lSLAP&e&lAROO"), ColourUtils.colour("&eInspired by HiveMC: Java Edition."), 40, 60, 40);
             online.playSound(online.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 7, 1);
             this.setState(States.IN_GAME);
+            main.getGameSignsApi().setState(GameState.IN_GAME);
             this.runStateChange();
         }
        fin = Bukkit.getScheduler().runTaskLaterAsynchronously(main, () -> {
@@ -78,6 +81,11 @@ public class GameManager {
             Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("slaparoo.start")).forEach(player -> {
                     player.sendMessage(ColourUtils.colour("&c&lDEBUG &8| &fDebug at state change:&c state cannot change to the same state."));
                     player.sendMessage(ColourUtils.colour("&c&lDEBUG &8| &6Cause&8: &fGame state cannot be set to the same game state."));
+            });
+        }
+        if (issue == "nospawns"){
+            Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("slaparoo.start")).forEach(player -> {
+                player.sendMessage(ColourUtils.colour("&c&lDEBUG &8| &4CRITICAL&8: &cGame spawns not set."));;
             });
         }
     }
