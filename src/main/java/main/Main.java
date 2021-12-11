@@ -70,13 +70,17 @@ public class Main extends JavaPlugin {
 
     public void insertData(Player p)
     {
-        SQL.insertData("name, UUID, points, kills, deaths", " '" + p.getName() + "', '" + p.getUniqueId().toString() + "', '0', '0', '0'"  , "slaparoo");
+        Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
+            SQL.insertData("name, UUID, points, kills, deaths", " '" + p.getName() + "', '" + p.getUniqueId().toString() + "', '0', '0', '0'"  , "slaparoo");
+        });
         //                   playerName, UUID, 0, 0, 0
     }
 
     public void addPoints(Player p, int amount)
     {
-        SQL.set("points", getPoints(p) + amount, "UUID", "=" , p.getUniqueId().toString(), "slaparoo");
+        Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
+            SQL.set("points", getPoints(p) + amount, "UUID", "=" , p.getUniqueId().toString(), "slaparoo");
+        });
     }
 
     public int getPoints(Player p)
@@ -86,7 +90,9 @@ public class Main extends JavaPlugin {
 
     public void addKills(Player p)
     {
-        SQL.set("kills", getKills(p) + 1, "UUID", "=", p.getUniqueId().toString(), "slaparoo");
+        Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
+            SQL.set("kills", getKills(p) + 1, "UUID", "=", p.getUniqueId().toString(), "slaparoo");
+        });
     }
 
     public int getKills(Player p)
@@ -96,7 +102,9 @@ public class Main extends JavaPlugin {
 
     public void addDeaths(Player p)
     {
-        SQL.set("deaths", getDeaths(p) + 1, "UUID", "=" , p.getUniqueId().toString(), "slaparoo");
+        Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
+            SQL.set("deaths", getDeaths(p) + 1, "UUID", "=" , p.getUniqueId().toString(), "slaparoo");
+        });
     }
 
     public int getDeaths(Player p)

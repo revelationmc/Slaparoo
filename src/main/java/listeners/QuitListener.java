@@ -2,7 +2,6 @@ package listeners;
 
 import main.Main;
 import managers.GameManager;
-import managers.States;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
