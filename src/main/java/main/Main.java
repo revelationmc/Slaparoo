@@ -15,6 +15,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.concurrent.CompletableFuture;
+
 public class Main extends JavaPlugin {
 
     private GameSignsAPI gameSignsApi;
@@ -79,37 +81,39 @@ public class Main extends JavaPlugin {
     public void addPoints(Player p, int amount)
     {
         Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
-            SQL.set("points", getPoints(p) + amount, "UUID", "=" , p.getUniqueId().toString(), "slaparoo");
+            SQL.set("points", getPoints(p).join() + amount, "UUID", "=" , p.getUniqueId().toString(), "slaparoo");
         });
     }
 
-    public int getPoints(Player p)
-    {
-        return (Integer) SQL.get("points", "UUID", "=" , p.getUniqueId().toString(), "slaparoo");
+    public CompletableFuture<Integer> getPoints(Player p) {
+        return  CompletableFuture.supplyAsync(()->
+                (Integer) SQL.get("points", "UUID", "=" , p.getUniqueId().toString(), "slaparoo"));
     }
 
     public void addKills(Player p)
     {
         Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
-            SQL.set("kills", getKills(p) + 1, "UUID", "=", p.getUniqueId().toString(), "slaparoo");
+            SQL.set("kills", getKills(p).join() + 1, "UUID", "=", p.getUniqueId().toString(), "slaparoo");
         });
     }
 
-    public int getKills(Player p)
+    public CompletableFuture<Integer> getKills(Player p)
     {
-        return (int) SQL.get("kills", "UUID", "=" , p.getUniqueId().toString(), "slaparoo");
+        return CompletableFuture.supplyAsync(() ->
+                (Integer) SQL.get("kills", "UUID", "=" , p.getUniqueId().toString(), "slaparoo"));
     }
 
     public void addDeaths(Player p)
     {
         Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
-            SQL.set("deaths", getDeaths(p) + 1, "UUID", "=" , p.getUniqueId().toString(), "slaparoo");
+            SQL.set("deaths", getDeaths(p).join() + 1, "UUID", "=" , p.getUniqueId().toString(), "slaparoo");
         });
     }
 
-    public int getDeaths(Player p)
+    public CompletableFuture<Integer> getDeaths(Player p)
     {
-        return (int) SQL.get("deaths", "UUID", "=" , p.getUniqueId().toString(), "slaparoo");
+        return CompletableFuture.supplyAsync(() ->
+                (Integer) SQL.get("deaths", "UUID", "=" , p.getUniqueId().toString(), "slaparoo"));
     }
 
     public GameSignsAPI getGameSignsApi() {
